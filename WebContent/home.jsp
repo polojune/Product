@@ -8,40 +8,27 @@
 
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/product/js/delete.js"></script>
+<script src="/product/js/pricesort.js"></script>
+<script src="/product/js/first.js"></script>
+<script src="/product/js/countsort.js"></script>
+
+
 <title>상품</title>
-<script> 
-    function deleteById(id){
-        console.log(id);
-        $.ajax({
-            type : "post", 
-            url : "/product/prod?cmd=deleteProc",
-            data : "id=" + id,
-            contentType : "application/x-www-form-urlencoded; charset-utf-8",
-            dataType : "text"
-            }).done(function(result){
-               if(result == "1"){
-                  alert("삭제 성공");
-                  var trItem = $("#tr-" + id);
-                   trItem.remove();
-                   }else{ 
-                   alert("삭제 실패");
-                       }
-                
-            }).fail(function(error){
-                 alert("삭제 실패")
-            });
-
-        }
-
-</script>
+ <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
 </head>
 <body>
+  
 	<h1>상품</h1>
-	<input type="button" name="btn" value="처음으로">
-	<input type="button" name="btn1" value="가격순">
-	<input type="button" name="btn2" value="판매순">
+	<input type="button" class="waves-effect waves-light btn" onclick="tofirst()"name="btn" value="처음으로">
+	<input type="button" class="waves-effect waves-light btn" onclick="sortbyprice()" name="btn1" value="가격순">
+	<input type="button" class="waves-effect waves-light btn" onclick="countbyprice()"name="btn2" value="판매순">
 
-	<table border="1">
+	<table class="striped">
+		<thead>
 		<tr>
 			<th>번호</th>
 			<th>이름</th>
@@ -49,7 +36,8 @@
 			<th>가격</th>
 			<th>판매수</th>
 		</tr>
-
+		</thead>
+		<tbody id="tbody">
 		<c:forEach var="p" items="${products}">
 			<tr id="tr-${p.id}">
 				<td>${p.id}</td>
@@ -60,7 +48,10 @@
 				<td><button onclick="deleteById(${p.id})">삭제</button></td>
 			</tr>
 		</c:forEach>
+		</tbody>
 	</table>
 </body>
 </html>
+
+
 

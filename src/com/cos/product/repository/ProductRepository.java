@@ -59,6 +59,78 @@ public class ProductRepository {
 		return null;
 
 	}
+	public List<Product> SortByPrice() {
+		final String SQL = "SELECT * FROM product ORDER BY price DESC";
+	
+
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+            
+			rs = pstmt.executeQuery(); 
+			
+			List<Product> products = new ArrayList<>();
+			while(rs.next()) { 
+				 Product  p =Product.builder()
+						.id(rs.getInt("id"))
+						.name(rs.getString("name"))
+						.type(Type.valueOf(rs.getString("type")))
+						.price(rs.getInt("price"))
+						.count(rs.getInt("count"))
+						.build();
+				 products.add(p);
+						
+			}
+			
+			
+			
+			return products;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "findAll : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt,rs);
+		}
+		return null;
+
+	}
+	public List<Product> CountByPrice() {
+		final String SQL = "SELECT * FROM product ORDER BY count DESC";
+	
+
+		try {
+			conn = DBConn.getConnection();
+			pstmt = conn.prepareStatement(SQL);
+            
+			rs = pstmt.executeQuery(); 
+			
+			List<Product> products = new ArrayList<>();
+			while(rs.next()) { 
+				 Product  p =Product.builder()
+						.id(rs.getInt("id"))
+						.name(rs.getString("name"))
+						.type(Type.valueOf(rs.getString("type")))
+						.price(rs.getInt("price"))
+						.count(rs.getInt("count"))
+						.build();
+				 products.add(p);
+						
+			}
+			
+			
+			
+			return products;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(TAG + "findAll : " + e.getMessage());
+		} finally {
+			DBConn.close(conn, pstmt,rs);
+		}
+		return null;
+
+	}
+		
+	
 	public int deleteById(int id) {
 		final String SQL ="DELETE FROM product WHERE id = ?";
 	     try {

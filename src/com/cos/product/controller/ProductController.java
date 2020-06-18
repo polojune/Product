@@ -9,8 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cos.product.action.Action;
+import com.cos.product.action.CountProcAction;
 import com.cos.product.action.DeleteProcAction;
+import com.cos.product.action.FirstAction;
 import com.cos.product.action.HomeAction;
+import com.cos.product.action.PriceSortProcAction;
 @WebServlet("/prod")
 public class ProductController extends HttpServlet{
         private final static String TAG = "ProductController";
@@ -41,6 +44,13 @@ public class ProductController extends HttpServlet{
 		   return new HomeAction();
 	   }else if(cmd.equals("deleteProc")) { 
 		   return new DeleteProcAction();
+	   }
+	   else if(cmd.equals("priceSortProc")) { 
+		   return new PriceSortProcAction();
+	   }else if(cmd.equals("countSortProc")) { 
+		   return new CountProcAction();
+	   }else if(cmd.equals("firstProc")) { 
+		   return new FirstAction();
 	   }
 	   return null;
   }
